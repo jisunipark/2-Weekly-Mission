@@ -1,0 +1,27 @@
+@import "sharing/styles/global.scss";
+
+.input {
+  display: flex;
+  width: 350px;
+  padding: 18px 15px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid $color-gray20;
+  background: $color-white;
+}
+
+.error {
+  border: 1px solid $color-red;
+}
+
+.error-message {
+  color: $color-red;
+  font-family: Pretendard;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.focused {
+  border-color: $color-primary;
+}
