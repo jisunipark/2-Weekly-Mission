@@ -4,7 +4,7 @@ export default function InputPage() {
   return (
     <>
       <h3>아이디</h3>
-      <Input />
+      <Input password={undefined} />
       <h3>비밀번호</h3>
       <Input password />
     </>
