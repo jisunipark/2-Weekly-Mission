@@ -12,6 +12,11 @@
   ],
   "rootMainFiles": [],
   "pages": {
+    "/FolderPage": [
+      "static/chunks/webpack.js",
+      "static/chunks/main.js",
+      "static/chunks/pages/FolderPage.js"
+    ],
     "/InputPage": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",

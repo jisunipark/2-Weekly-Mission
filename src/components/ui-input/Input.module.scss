@@ -1,8 +1,15 @@
 @import "sharing/styles/global.scss";
 
+.container {
+  position: relative;
+  width: 350px;
+  // padding: 18px 15px;
+}
+
 .input {
   display: flex;
-  width: 350px;
+  box-sizing: border-box;
+  width: 100%;
   padding: 18px 15px;
   justify-content: center;
   align-items: center;
@@ -37,4 +44,11 @@
   font-family: Pretendard;
   font-size: 14px;
   font-weight: 400;
+}
+
+.eye-icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 15px;
 }
