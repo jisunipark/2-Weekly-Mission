@@ -4,8 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
 import { EYEOFF_IMAGE } from "./constant";
 import { EYEON_IMAGE } from "./constant";
-// import { ReactComponent as EyeOffIcon } from "./eye-off.svg";
-// import { ReactComponent as EyeOnIcon } from "./eye-on.svg";
 
 const cx = classNames.bind(styles);
 
@@ -14,21 +12,14 @@ const cx = classNames.bind(styles);
 // };
 
 export const Input = ({ password }) => {
-  const [inputType, setInputType] = useState("email");
+  const initialType = password ? "password" : "email";
 
-  useEffect(() => {
-    if (password) setInputType("password");
-  }, []);
+  const [inputType, setInputType] = useState(initialType);
 
-  const setPlaceholder = () => {
-    if (inputType === "password" || inputType === "text") {
-      return "비밀번호를 입력해 주세요";
-    } else if (inputType === "email") {
-      return "codeit@codeit.com";
-    }
-  };
-
-  const placeholder = setPlaceholder();
+  const isInput = inputType === "password" || inputType === "text";
+  const placeholder = isInput
+    ? "비밀번호를 입력해 주세요"
+    : "codeit@codeit.com";
 
   const [isFocused, setIsFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
@@ -49,13 +40,16 @@ export const Input = ({ password }) => {
   const [isVisible, setIsVisible] = useState(false);
 
   const handlePasswordShown = (e) => {
-    if (isVisible) {
-      setIsVisible(!isVisible);
-      setInputType("password");
-    } else {
-      setIsVisible(!isVisible);
-      setInputType("text");
-    }
+    setIsVisible(!isVisible);
+    isVisible ? setInputType("password") : setInputType("text");
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
   };
 
   return (
@@ -66,14 +60,9 @@ export const Input = ({ password }) => {
           type={inputType}
           placeholder={placeholder}
           ref={inputRef}
-          onFocus={() => {
-            setIsFocused(true);
-          }}
-          onBlur={() => {
-            setIsFocused(false);
-          }}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
         />
-        {/* {password && <EyeOffIcon />} */}
         {password &&
           (isVisible ? (
             <Image
