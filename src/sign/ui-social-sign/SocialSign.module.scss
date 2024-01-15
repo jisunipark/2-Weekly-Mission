@@ -1,0 +1,21 @@
+@import "sharing/styles/global.scss";
+
+.box {
+  box-sizing: border-box;
+  display: flex;
+  width: 100%;
+  padding: 12px 24px;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 8px;
+  border: 1px solid $color-gray20;
+  background-color: $color-gray10;
+  color: $color-gray100;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.buttons {
+  display: flex;
+  gap: 16px;
+}

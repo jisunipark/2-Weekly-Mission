@@ -9,6 +9,7 @@ type SignInLayoutProps = {
   email: ReactNode;
   password: ReactNode;
   cta: ReactNode;
+  social: ReactNode;
 };
 
 export const SignInLayout = ({
@@ -16,6 +17,7 @@ export const SignInLayout = ({
   email,
   password,
   cta,
+  social,
 }: SignInLayoutProps) => {
   return (
     <div className={cx("sign-page")}>
@@ -30,6 +32,7 @@ export const SignInLayout = ({
           {password}
         </div>
         {cta}
+        <div className={cx("social")}>{social}</div>
       </div>
     </div>
   );
