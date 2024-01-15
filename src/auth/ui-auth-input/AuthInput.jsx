@@ -1,4 +1,4 @@
-import styles from "./SignInput.module.scss";
+import styles from "./AuthInput.module.scss";
 import classNames from "classnames/bind";
 import { useEffect, useState, useRef } from "react";
 import Image from "next/image";
@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 //   password: boolean;
 // };
 
-export const SignInput = ({ password }) => {
+export const AuthInput = ({ password }) => {
   const initialType = password ? "password" : "email";
 
   const [inputType, setInputType] = useState(initialType);

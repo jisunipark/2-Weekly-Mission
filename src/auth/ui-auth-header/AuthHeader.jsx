@@ -2,13 +2,13 @@ import classNames from "classnames/bind";
 import { LOGO_IMAGE } from "./constant";
 import Image from "next/image";
 import Link from "next/link";
-import styles from "./SignHeader.module.scss";
+import styles from "./AuthHeader.module.scss";
 
 const cx = classNames.bind(styles);
 
-export const SignHeader = () => {
+export const AuthHeader = () => {
   return (
-    <div className={cx("sign-header")}>
+    <div className={cx("auth-header")}>
       <Link href="/">
         <Image
           src={LOGO_IMAGE}

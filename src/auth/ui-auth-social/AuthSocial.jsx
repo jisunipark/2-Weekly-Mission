@@ -1,4 +1,4 @@
-import styles from "./SocialSign.module.scss";
+import styles from "./AuthSocial.module.scss";
 import classNames from "classnames/bind";
 import Image from "next/image";
 import Link from "next/link";
@@ -11,7 +11,7 @@ import {
 
 const cx = classNames.bind(styles);
 
-export const SocialSign = () => {
+export const AuthSocial = () => {
   return (
     <div className={cx("box")}>
       <p>소셜 로그인</p>
