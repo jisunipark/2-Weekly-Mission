@@ -6,14 +6,14 @@ import { AuthSocial } from "auth/ui-auth-social/AuthSocial";
 
 export default function SignInPage() {
   return (
-    <div>
+    <>
       <SignInLayout
-        header={<AuthHeader />}
+        header={<AuthHeader page="signin" />}
         email={<AuthInput />}
         password={<AuthInput password />}
-        cta={<Cta>로그인</Cta>}
-        social={<AuthSocial />}
+        cta={<Cta page="signin">로그인</Cta>}
+        social={<AuthSocial page="signin" />}
       />
-    </div>
+    </>
   );
 }

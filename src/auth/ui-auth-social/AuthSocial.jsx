@@ -11,10 +11,12 @@ import {
 
 const cx = classNames.bind(styles);
 
-export const AuthSocial = () => {
+export const AuthSocial = ({ page }) => {
+  const message = page === "signin" ? "소셜 로그인" : "다른 방식으로 가입하기";
+
   return (
     <div className={cx("box")}>
-      <p>소셜 로그인</p>
+      <p>{message}</p>
       <div className={cx("buttons")}>
         <Link href={GOOGLE_URL}>
           <Image

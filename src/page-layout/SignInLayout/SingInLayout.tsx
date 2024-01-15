@@ -20,7 +20,7 @@ export const SignInLayout = ({
   social,
 }: SignInLayoutProps) => {
   return (
-    <div className={cx("sign-page")}>
+    <div className={cx("auth-page")}>
       <div className={cx("container")}>
         {header}
         <div className={cx("section")}>

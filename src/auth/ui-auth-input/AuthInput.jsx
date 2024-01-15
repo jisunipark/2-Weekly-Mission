@@ -7,10 +7,6 @@ import { EYEON_IMAGE } from "./constant";
 
 const cx = classNames.bind(styles);
 
-// type InputProps = {
-//   password: boolean;
-// };
-
 export const AuthInput = ({ password }) => {
   const initialType = password ? "password" : "email";
 
@@ -19,7 +15,7 @@ export const AuthInput = ({ password }) => {
   const isInput = inputType === "password" || inputType === "text";
   const placeholder = isInput
     ? "비밀번호를 입력해 주세요"
-    : "codeit@codeit.com";
+    : "이메일을 입력해 주세요";
 
   const [isFocused, setIsFocused] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");

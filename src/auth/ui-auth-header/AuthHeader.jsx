@@ -6,7 +6,12 @@ import styles from "./AuthHeader.module.scss";
 
 const cx = classNames.bind(styles);
 
-export const AuthHeader = () => {
+export const AuthHeader = ({ page }) => {
+  const isSignIn = page === "signin" ? true : false;
+  const message = isSignIn ? "회원이 아니신가요?" : "이미 회원이신가요?";
+  const guide = isSignIn ? "회원 가입하기" : "로그인 하기";
+  const guideLink = isSignIn ? "/auth/signup" : "/auth/signin";
+
   return (
     <div className={cx("auth-header")}>
       <Link href="/">
@@ -18,8 +23,8 @@ export const AuthHeader = () => {
         />
       </Link>
       <div className={cx("check")}>
-        <p>회원이 아니신가요?</p>
-        <Link href="/SignUpPage">회원 가입하기</Link>
+        <p>{message}</p>
+        <Link href={guideLink}>{guide}</Link>
       </div>
     </div>
   );
