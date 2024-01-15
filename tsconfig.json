@@ -74,7 +74,8 @@
     "next-env.d.ts",
     "**/*.ts",
     "**/*.tsx",
-    "src/components/ui-input/Input.jsx"
+    "src/sign/ui-sign-input/SignInput.jsx",
+    "src/pages/SignInPage.ㅓsx"
   ],
   "exclude": ["node_modules"]
 }
