@@ -9,8 +9,8 @@ export default function SignInPage() {
     <>
       <SignInLayout
         header={<AuthHeader page="signin" />}
-        email={<AuthInput />}
-        password={<AuthInput password />}
+        email={<AuthInput placeholder="이메일을 입력해 주세요" />}
+        password={<AuthInput placeholder="비밀번호를 입력해 주세요" password />}
         cta={<Cta page="signin">로그인</Cta>}
         social={<AuthSocial page="signin" />}
       />
