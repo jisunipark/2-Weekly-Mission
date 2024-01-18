@@ -1,0 +1,30 @@
+@import "sharing/styles/global.scss";
+
+.auth-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f0f6ff;
+  font-family: "Pretendard";
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 400px;
+  gap: 30px;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.social {
+  margin-top: 2px;
+}
