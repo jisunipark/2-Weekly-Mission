@@ -1,16 +1,16 @@
 import classNames from "classnames/bind";
-import styles from "./SignInForm.module.scss";
+import styles from "./SignUpForm.module.scss";
 import { useState } from "react";
-import { SignInInput } from "auth/ui-signin-input/SignInInput";
+import { SignUpInput } from "auth/ui-signup-input/SignUpInput";
 import { Cta } from "sharing/ui-cta/Cta";
-import { postSignIn } from "../../api/api";
-import { INITIAL_VALUES, PLACEHOLDERS } from "./constant";
+import { postSignUp } from "../../api/api";
+import { INITIAL_VALUE, PLACEHOLDER } from "./constant";
 import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
 
-export const SignInForm = () => {
-  const [values, setValues] = useState(INITIAL_VALUES);
+export const SignUpForm = () => {
+  const [values, setValues] = useState(INITIAL_VALUE);
 
   const router = useRouter();
 
@@ -24,13 +24,16 @@ export const SignInForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const body = await postSignIn(values);
+    console.log(values);
+    const { confirmedPassword, ...postValues } = values;
+    console.log(postValues);
+    const body = await postSignUp(postValues);
     try {
-      setValues(INITIAL_VALUES);
+      setValues(INITIAL_VALUE);
       localStorage.setItem(
         "accessToken",
         JSON.stringify(body.data.accessToken)
-      ); // QUESTION token의 값으로 body.data가 들어가야 하는지, 아니면 body.data.accessToken이 들어가야 하는지. 일단 템플릿 코드대로 후자로 하긴 했음
+      );
       if (localStorage.getItem("accessToken")) router.push("/folder");
     } catch (error) {
       console.log(error);
@@ -41,8 +44,8 @@ export const SignInForm = () => {
     <form onSubmit={handleSubmit}>
       <div className={cx("section")}>
         <label>이메일</label>
-        <SignInInput
-          placeholder={PLACEHOLDERS.email}
+        <SignUpInput
+          placeholder={PLACEHOLDER.email}
           type="email"
           value={values.email}
           onChange={handleChange}
@@ -50,14 +53,24 @@ export const SignInForm = () => {
       </div>
       <div className={cx("section")}>
         <label>비밀번호</label>
-        <SignInInput
-          placeholder={PLACEHOLDERS.password}
+        <SignUpInput
+          placeholder={PLACEHOLDER.password}
           type="password"
           value={values.password}
           onChange={handleChange}
         />
       </div>
-      <Cta>로그인</Cta>
+      <div className={cx("section")}>
+        <label>비밀번호 확인</label>
+        <SignUpInput
+          placeholder={PLACEHOLDER.confirmedPassword}
+          type="confirmedPassword"
+          value={values.confirmedPassword}
+          onChange={handleChange}
+          password={values.password}
+        />
+      </div>
+      <Cta>회원가입</Cta>
     </form>
   );
 };

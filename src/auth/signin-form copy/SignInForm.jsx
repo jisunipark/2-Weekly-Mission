@@ -4,7 +4,7 @@ import { useState } from "react";
 import { SignInInput } from "auth/ui-signin-input/SignInInput";
 import { Cta } from "sharing/ui-cta/Cta";
 import { postSignIn } from "../../api/api";
-import { INITIAL_VALUES, PLACEHOLDERS } from "./constant";
+import { INITIAL_VALUES } from "./constant";
 import { useRouter } from "next/router";
 
 const cx = classNames.bind(styles);
@@ -27,6 +27,7 @@ export const SignInForm = () => {
     const body = await postSignIn(values);
     try {
       setValues(INITIAL_VALUES);
+      console.log(body);
       localStorage.setItem(
         "accessToken",
         JSON.stringify(body.data.accessToken)
@@ -42,8 +43,7 @@ export const SignInForm = () => {
       <div className={cx("section")}>
         <label>이메일</label>
         <SignInInput
-          placeholder={PLACEHOLDERS.email}
-          type="email"
+          placeholder="이메일을 입력해 주세요"
           value={values.email}
           onChange={handleChange}
         />
@@ -51,8 +51,8 @@ export const SignInForm = () => {
       <div className={cx("section")}>
         <label>비밀번호</label>
         <SignInInput
-          placeholder={PLACEHOLDERS.password}
-          type="password"
+          placeholder="비밀번호를 입력해 주세요"
+          password
           value={values.password}
           onChange={handleChange}
         />

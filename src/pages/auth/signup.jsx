@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { SignUpLayout } from "page-layout/SignUpLayout/SignUpLayout";
-// import { AuthInput } from "auth/ui-signin-input/AuthInput";
-import { Cta } from "sharing/ui-cta/Cta";
+import { SignUpForm } from "auth/signup-form/SignUpForm";
 import { AuthHeader } from "auth/ui-auth-header/AuthHeader";
 import { AuthSocial } from "auth/ui-auth-social/AuthSocial";
 
@@ -10,7 +9,7 @@ export default function SignUpPage() {
 
   return (
     <>
-      <SignUpLayout
+      {/* <SignUpLayout
         header={<AuthHeader page="signup" />}
         email={<AuthInput placeholder="이메일을 입력해 주세요" />}
         // password={
@@ -29,6 +28,11 @@ export default function SignUpPage() {
         //   />
         // }
         cta={<Cta page="signup">회원가입</Cta>}
+        social={<AuthSocial page="signup" />}
+      /> */}
+      <SignUpLayout
+        header={<AuthHeader page="signup" />}
+        form={<SignUpForm />}
         social={<AuthSocial page="signup" />}
       />
     </>

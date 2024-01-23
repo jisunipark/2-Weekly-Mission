@@ -11,14 +11,8 @@ import {
 
 const cx = classNames.bind(styles);
 
-export const SignInInput = ({
-  password,
-  check,
-  placeholder,
-  onChange,
-  value,
-}) => {
-  const initialType = password ? "password" : "email";
+export const SignInInput = ({ type, placeholder, onChange, value }) => {
+  const initialType = type;
 
   const [inputType, setInputType] = useState(initialType);
   const [isFocused, setIsFocused] = useState(false);
@@ -54,16 +48,6 @@ export const SignInInput = ({
     }
   };
 
-  const inputRef = useRef();
-
-  useEffect(() => {
-    if (!password) {
-      inputRef.current?.addEventListener("focusout", handleEmailError);
-    } else if (!check) {
-      inputRef.current?.addEventListener("focusout", handlePasswordError);
-    }
-  }, []);
-
   // 비밀번호 보이기/숨기기
   const handlePasswordShown = (e) => {
     setIsVisible(!isVisible);
@@ -75,8 +59,10 @@ export const SignInInput = ({
     setIsFocused(true);
   };
 
-  const handleBlur = () => {
+  const handleBlur = (e) => {
     setIsFocused(false);
+    if (type === "email") handleEmailError(e);
+    else if (type === "password") handlePasswordError(e);
   };
 
   return (
@@ -86,14 +72,13 @@ export const SignInInput = ({
           className={cx("input", { focused: isFocused, error: errorMessage })}
           type={inputType}
           placeholder={placeholder}
-          ref={inputRef}
           onFocus={handleFocus}
           onBlur={handleBlur}
           name={initialType}
           value={value}
           onChange={onChange}
         />
-        {password &&
+        {type === "password" &&
           (isVisible ? (
             <Image
               src={EYEON_IMAGE}
