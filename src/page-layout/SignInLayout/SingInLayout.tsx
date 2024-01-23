@@ -6,32 +6,16 @@ const cx = classNames.bind(styles);
 
 type SignInLayoutProps = {
   header: ReactNode;
-  email: ReactNode;
-  password: ReactNode;
-  cta: ReactNode;
+  form: ReactNode;
   social: ReactNode;
 };
 
-export const SignInLayout = ({
-  header,
-  email,
-  password,
-  cta,
-  social,
-}: SignInLayoutProps) => {
+export const SignInLayout = ({ header, form, social }: SignInLayoutProps) => {
   return (
     <div className={cx("auth-page")}>
       <div className={cx("container")}>
         {header}
-        <div className={cx("section")}>
-          <label>이메일</label>
-          {email}
-        </div>
-        <div className={cx("section")}>
-          <label>비밀번호</label>
-          {password}
-        </div>
-        {cta}
+        {form}
         <div className={cx("social")}>{social}</div>
       </div>
     </div>
