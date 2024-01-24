@@ -31,7 +31,7 @@ export const SignInForm = () => {
       localStorage.setItem(
         "accessToken",
         JSON.stringify(body.data.accessToken)
-      ); // QUESTION token의 값으로 body.data가 들어가야 하는지, 아니면 body.data.accessToken이 들어가야 하는지. 일단 템플릿 코드대로 후자로 하긴 했음
+      );
       if (localStorage.getItem("accessToken")) router.push("/folder");
     } catch {
       setIsError(true);
