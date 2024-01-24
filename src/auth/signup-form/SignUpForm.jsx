@@ -3,7 +3,7 @@ import styles from "./SignUpForm.module.scss";
 import { useState } from "react";
 import { SignUpInput } from "auth/ui-signup-input/SignUpInput";
 import { Cta } from "sharing/ui-cta/Cta";
-import { postSignUp } from "../../api/api";
+import { postSignUp, checkIfUsable } from "../../api/api";
 import { INITIAL_VALUE, PLACEHOLDER } from "./constant";
 import { useRouter } from "next/router";
 
@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 
 export const SignUpForm = () => {
   const [values, setValues] = useState(INITIAL_VALUE);
+  const [isUsable, setIsUsable] = useState(true);
 
   const router = useRouter();
 
@@ -24,19 +25,19 @@ export const SignUpForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(values);
     const { confirmedPassword, ...postValues } = values;
-    console.log(postValues);
-    const body = await postSignUp(postValues);
-    try {
+    const postResponse = await postSignUp(postValues);
+
+    if (postResponse.ok) {
+      console.log("트라이 실행");
       setValues(INITIAL_VALUE);
       localStorage.setItem(
         "accessToken",
-        JSON.stringify(body.data.accessToken)
+        JSON.stringify(postResponse.data.accessToken)
       );
       if (localStorage.getItem("accessToken")) router.push("/folder");
-    } catch (error) {
-      console.log(error);
+    } else {
+      if (!postResponse.isUsableEmail) setIsUsable(false);
     }
   };
 
@@ -49,6 +50,7 @@ export const SignUpForm = () => {
           type="email"
           value={values.email}
           onChange={handleChange}
+          isUsable={isUsable}
         />
       </div>
       <div className={cx("section")}>

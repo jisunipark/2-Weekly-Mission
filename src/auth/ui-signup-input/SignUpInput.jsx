@@ -18,6 +18,7 @@ export const SignUpInput = ({
   value,
   onChange,
   password,
+  isUsable = true,
 }) => {
   const initialType = type;
   const [inputType, setInputType] = useState(type);
@@ -25,7 +26,13 @@ export const SignUpInput = ({
   const [errorMessage, setErrorMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
-  // 이메일, 비밀번호 유효성 검사
+  useEffect(() => {
+    if (!isUsable) {
+      console.log("이거 실행되냐");
+      setErrorMessage(ERROR_MESSAGE.emailAlreadyExist);
+    }
+  }, []);
+
   const isValidEmail = (input) => {
     return EMAIL_REGEX.test(input) ? true : false;
   };
@@ -64,13 +71,11 @@ export const SignUpInput = ({
     }
   };
 
-  // 비밀번호 보이기/숨기기
   const handlePasswordShown = (e) => {
     setIsVisible(!isVisible);
     isVisible ? setInputType("password") : setInputType("text");
   };
 
-  // input focus시 파란 테두리
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -81,6 +86,12 @@ export const SignUpInput = ({
     else if (type == "password") handlePasswordError(e);
     else if (type == "confirmedPassword") handlePasswordConfirmError(e);
   };
+
+  useEffect(() => {
+    if (!isUsable) {
+      if (type == "email") setErrorMessage(ERROR_MESSAGE.emailAlreadyExist);
+    }
+  }, [isUsable]);
 
   return (
     <div>
