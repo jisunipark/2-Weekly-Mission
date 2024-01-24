@@ -11,6 +11,7 @@ const cx = classNames.bind(styles);
 
 export const SignInForm = () => {
   const [values, setValues] = useState(INITIAL_VALUES);
+  const [isError, setIsError] = useState(false);
 
   const router = useRouter();
 
@@ -32,8 +33,8 @@ export const SignInForm = () => {
         JSON.stringify(body.data.accessToken)
       ); // QUESTION token의 값으로 body.data가 들어가야 하는지, 아니면 body.data.accessToken이 들어가야 하는지. 일단 템플릿 코드대로 후자로 하긴 했음
       if (localStorage.getItem("accessToken")) router.push("/folder");
-    } catch (error) {
-      console.log(error);
+    } catch {
+      setIsError(true);
     }
   };
 
@@ -46,6 +47,7 @@ export const SignInForm = () => {
           type="email"
           value={values.email}
           onChange={handleChange}
+          isError={isError}
         />
       </div>
       <div className={cx("section")}>
@@ -55,6 +57,7 @@ export const SignInForm = () => {
           type="password"
           value={values.password}
           onChange={handleChange}
+          isError={isError}
         />
       </div>
       <Cta>로그인</Cta>

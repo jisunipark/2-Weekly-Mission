@@ -3,7 +3,7 @@ import styles from "./SignUpForm.module.scss";
 import { useState } from "react";
 import { SignUpInput } from "auth/ui-signup-input/SignUpInput";
 import { Cta } from "sharing/ui-cta/Cta";
-import { postSignUp, checkIfUsable } from "../../api/api";
+import { postSignUp } from "../../api/api";
 import { INITIAL_VALUE, PLACEHOLDER } from "./constant";
 import { useRouter } from "next/router";
 
@@ -12,6 +12,7 @@ const cx = classNames.bind(styles);
 export const SignUpForm = () => {
   const [values, setValues] = useState(INITIAL_VALUE);
   const [isUsable, setIsUsable] = useState(true);
+  const [whichError, setWhichError] = useState("");
 
   const router = useRouter();
 
@@ -28,16 +29,19 @@ export const SignUpForm = () => {
     const { confirmedPassword, ...postValues } = values;
     const postResponse = await postSignUp(postValues);
 
-    if (postResponse.ok) {
-      console.log("트라이 실행");
+    try {
+      if (!isUsable) {
+        throw new Error("이메일 중복");
+      }
       setValues(INITIAL_VALUE);
       localStorage.setItem(
         "accessToken",
         JSON.stringify(postResponse.data.accessToken)
       );
-      if (localStorage.getItem("accessToken")) router.push("/folder");
-    } else {
+      // if (localStorage.getItem("accessToken")) router.push("/folder");
+    } catch {
       if (!postResponse.isUsableEmail) setIsUsable(false);
+      setWhichError(postResponse.error?.message);
     }
   };
 
@@ -51,6 +55,7 @@ export const SignUpForm = () => {
           value={values.email}
           onChange={handleChange}
           isUsable={isUsable}
+          whichError={whichError}
         />
       </div>
       <div className={cx("section")}>
@@ -60,6 +65,7 @@ export const SignUpForm = () => {
           type="password"
           value={values.password}
           onChange={handleChange}
+          whichError={whichError}
         />
       </div>
       <div className={cx("section")}>
@@ -70,6 +76,7 @@ export const SignUpForm = () => {
           value={values.confirmedPassword}
           onChange={handleChange}
           password={values.password}
+          whichError={whichError}
         />
       </div>
       <Cta>회원가입</Cta>

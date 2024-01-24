@@ -19,6 +19,7 @@ export const SignUpInput = ({
   onChange,
   password,
   isUsable = true,
+  whichError,
 }) => {
   const initialType = type;
   const [inputType, setInputType] = useState(type);
@@ -92,6 +93,13 @@ export const SignUpInput = ({
       if (type == "email") setErrorMessage(ERROR_MESSAGE.emailAlreadyExist);
     }
   }, [isUsable]);
+
+  useEffect(() => {
+    if (whichError) {
+      if (whichError.includes("already" && type == "email"))
+        setErrorMessage(ERROR_MESSAGE.emailAlreadyExist);
+    }
+  }, [whichError]);
 
   return (
     <div>

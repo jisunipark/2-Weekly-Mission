@@ -1,17 +1,24 @@
 import styles from "./SignInInput.module.scss";
 import classNames from "classnames/bind";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import {
   EYEOFF_IMAGE,
   EYEON_IMAGE,
   EMAIL_REGEX,
   PASSWORD_REGEX,
+  ERROR_MESSAGE,
 } from "./constant";
 
 const cx = classNames.bind(styles);
 
-export const SignInInput = ({ type, placeholder, onChange, value }) => {
+export const SignInInput = ({
+  type,
+  placeholder,
+  onChange,
+  value,
+  isError,
+}) => {
   const initialType = type;
 
   const [inputType, setInputType] = useState(initialType);
@@ -19,7 +26,6 @@ export const SignInInput = ({ type, placeholder, onChange, value }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [isVisible, setIsVisible] = useState(false);
 
-  // 이메일, 비밀번호 유효성 검사
   const isValidEmail = (input) => {
     return EMAIL_REGEX.test(input) ? true : false;
   };
@@ -30,9 +36,9 @@ export const SignInInput = ({ type, placeholder, onChange, value }) => {
 
   const handleEmailError = (e) => {
     if (!e.target.value) {
-      setErrorMessage("이메일을 입력해 주세요");
+      setErrorMessage(ERROR_MESSAGE.emailRequired);
     } else if (!isValidEmail(e.target.value)) {
-      setErrorMessage("올바른 이메일 주소가 아닙니다");
+      setErrorMessage(ERROR_MESSAGE.emailInvalid);
     } else {
       setErrorMessage("");
     }
@@ -40,21 +46,17 @@ export const SignInInput = ({ type, placeholder, onChange, value }) => {
 
   const handlePasswordError = (e) => {
     if (!e.target.value) {
-      setErrorMessage("비밀번호를 입력해 주세요");
-    } else if (!isValidPassword(e.target.value)) {
-      setErrorMessage("비밀번호는 영문, 숫자 조합 8자 이상 입력해 주세요");
+      setErrorMessage(ERROR_MESSAGE.passwordRequired);
     } else {
       setErrorMessage("");
     }
   };
 
-  // 비밀번호 보이기/숨기기
   const handlePasswordShown = (e) => {
     setIsVisible(!isVisible);
     isVisible ? setInputType("password") : setInputType("text");
   };
 
-  // input focus시 파란 테두리
   const handleFocus = () => {
     setIsFocused(true);
   };
@@ -64,6 +66,16 @@ export const SignInInput = ({ type, placeholder, onChange, value }) => {
     if (type === "email") handleEmailError(e);
     else if (type === "password") handlePasswordError(e);
   };
+
+  useEffect(() => {
+    if (isError) {
+      if (type === "email") setErrorMessage(ERROR_MESSAGE.emailCheck);
+      else if (type === "password")
+        setErrorMessage(ERROR_MESSAGE.passwordCheck);
+    } else {
+      setErrorMessage("");
+    }
+  }, [isError]);
 
   return (
     <div>
